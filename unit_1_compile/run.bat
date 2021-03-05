@@ -16,8 +16,8 @@ call ant run
 echo -----------------
 cd..
 cd maven\app
-call setmaven.bat
 echo ------Maven------
+call setmaven.bat
 call mvn clean install
 java -jar target/app-1.0-SNAPSHOT.jar
 echo -----------------

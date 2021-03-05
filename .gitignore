@@ -2,5 +2,6 @@
 *.iml
 *.class
 out
-target
-build
+target/
+build/
+
