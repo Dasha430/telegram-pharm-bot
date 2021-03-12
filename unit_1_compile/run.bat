@@ -17,7 +17,11 @@ echo -----------------
 cd..
 cd maven\app
 echo ------Maven------
+cd..
+cd maven
 call setmaven.bat
+cd ..
+cd unit_1_compile\maven\app
 call mvn clean install
 java -jar target/app-1.0-SNAPSHOT.jar
 echo -----------------
