@@ -1,4 +1,5 @@
 @echo off
+chcp 1251
 echo -------------Setting maven-------------
 cd ..
 cd maven
@@ -14,7 +15,7 @@ cd task-2
 call mvn clean install
 java -jar target/task-2-1.0-SNAPSHOT.jar
 cd ..
-echo -------------task2-------------
+echo -------------task3-------------
 cd task-3
 call mvn clean install
 java -jar target/task-3-1.0-SNAPSHOT.jar

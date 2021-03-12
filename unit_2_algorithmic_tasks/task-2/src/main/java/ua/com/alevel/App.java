@@ -8,7 +8,7 @@ public class App
 {
     public static void main( String[] args ) {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Input data (string that contains latin symbols): ");
+        System.out.print("Input data (string that contains latin/cyrillic symbols): ");
         String str = sc.nextLine();
         System.out.println();
         Map<Character, Integer> lettersCount = new TreeMap<>();
