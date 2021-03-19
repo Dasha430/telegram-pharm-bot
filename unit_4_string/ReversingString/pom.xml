@@ -3,27 +3,17 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>unit_3_oop</artifactId>
+        <artifactId>unit_4_string</artifactId>
         <groupId>ua.com.alevel</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ConsoleHelper</artifactId>
-    <packaging>jar</packaging>
+    <artifactId>ReversingString</artifactId>
 
     <properties>
         <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
-        <reflections.version>0.9.12</reflections.version>
     </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.reflections</groupId>
-            <artifactId>reflections</artifactId>
-            <version>${reflections.version}</version>
-        </dependency>
-    </dependencies>
 
 </project>

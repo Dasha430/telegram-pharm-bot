@@ -6,7 +6,7 @@ import ua.com.alevel.service.factory.CalculatorFactory;
 import ua.com.alevel.service.factory.ConsoleFactory;
 
 import java.math.BigInteger;
-import java.util.Scanner;
+
 
 public class Calculate {
     private final CalculatorService calculatorService = CalculatorFactory.getInstance().getCalculatorService();
