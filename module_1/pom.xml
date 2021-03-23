@@ -10,6 +10,8 @@
     <modules>
         <module>level1</module>
         <module>AllTasks</module>
+        <module>level2</module>
+        <module>level3</module>
     </modules>
     <packaging>pom</packaging>
 

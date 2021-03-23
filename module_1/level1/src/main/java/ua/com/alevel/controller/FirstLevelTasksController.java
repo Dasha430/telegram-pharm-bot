@@ -9,15 +9,14 @@ import java.util.Scanner;
 import java.util.List;
 
 public class FirstLevelTasksController {
-    public void run() {
+    public void run(String task) {
         Scanner scanner = new Scanner(System.in);
 
         while(true) {
-            String task = scanner.nextLine();
 
             switch(task) {
                 case "0":
-                    System.exit(0);
+                    return;
                 case "1":
                     System.out.println("Enter your array of integers: ");
                     List<Integer>array = convertArrayToInt(makeArray(scanner.nextLine()));
@@ -44,9 +43,13 @@ public class FirstLevelTasksController {
                     List<Double> topC = convertArrayToDouble(makeArray(scanner.nextLine()));
                     System.out.println("The area of the triangle is: " + TriangleAreaUtil.CalculateArea(topA, topB, topC));
                     break;
+                default:
+                    System.out.println("Wrong option");
 
             }
+
             System.out.println("Press 0 to exit or repeat the logic");
+            task = scanner.nextLine();
 
         }
 

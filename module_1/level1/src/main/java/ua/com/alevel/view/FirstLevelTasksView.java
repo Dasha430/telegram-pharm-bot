@@ -15,6 +15,6 @@ public class FirstLevelTasksView {
         System.out.println("2 - check if it's possible to move the knight to the specified position on a limitless chess board");
         System.out.println("3 - calculate the area of a triangle");
         System.out.println("0 - exit");
-        controller.run();
+        controller.run(scanner.nextLine());
     }
 }

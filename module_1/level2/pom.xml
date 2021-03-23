@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>level1</artifactId>
+    <artifactId>level2</artifactId>
     <packaging>jar</packaging>
 
     <properties>
