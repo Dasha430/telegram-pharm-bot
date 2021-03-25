@@ -9,6 +9,10 @@ public class ParenthesesTaskUtil {
             return true;
         }
 
+        if (!src.contains("(") && !src.contains("[") && !src.contains("{") ) {
+            return false;
+        }
+
         List<Character> parentheses = new ArrayList<>();
         for(int i = 0;i < src.length(); i++) {
             char currentChar = src.charAt(i);
