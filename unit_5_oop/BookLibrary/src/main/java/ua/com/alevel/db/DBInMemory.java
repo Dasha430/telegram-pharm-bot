@@ -65,13 +65,13 @@ public class DBInMemory {
     public List<Book> findBooksByAuthor(Author a) {
 
         return this.books.stream()
-                .filter(book -> book.getAuthors().stream().anyMatch(author -> author.getId().equals(a.getId())))
+                .filter(book -> book.getAuthors().stream().anyMatch(author -> a.getId().equals(author.getId())))
                 .collect(Collectors.toList());
     }
     public List<Author> findAuthorsByBook(Book b) {
 
         return this.authors.stream()
-                .filter(author -> author.getBooks().stream().anyMatch(book -> book.getId().equals(b.getId())))
+                .filter(author -> author.getBooks().stream().anyMatch(book -> b.getId().equals(book.getId())))
                 .collect(Collectors.toList());
     }
 

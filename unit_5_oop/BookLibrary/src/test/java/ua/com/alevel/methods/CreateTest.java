@@ -14,9 +14,8 @@ import java.util.List;
 public class CreateTest {
     private static final LibraryService<Author> authorService = new AuthorService();
     private static final LibraryService<Book> bookService = new BookService();
-
-    private static final String authorStr = "Author";
-    private static final String bookStr = "Book";
+    private  static final String authorStr = "Author";
+    private  static final String bookStr = "Book";
 
     @Test
     public void createEntity() {
