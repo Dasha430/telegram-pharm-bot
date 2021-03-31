@@ -23,12 +23,6 @@ public class AuthorService implements LibraryService<Author> {
         }
         db.createAuthor(author);
 
-        /* List<Book> b = author.getBooks();
-        for (Book book : b) {
-            if (db.existById(book.getId(), Book.class)) {
-
-            }
-        }*/
         logger.info("finish creating author");
     }
 

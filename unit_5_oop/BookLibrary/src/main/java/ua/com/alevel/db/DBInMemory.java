@@ -71,9 +71,8 @@ public class DBInMemory {
     }
     public List<Author> findAuthorsByBook(Book b) {
 
-        return this.authors.stream()
-                .filter(author -> author.getBooks().stream().anyMatch(book -> b.getId().equals(book.getId())))
-                .collect(Collectors.toList());
+        return b.getAuthors();
+
     }
 
     public Book findBookById(String id) {
@@ -102,13 +101,13 @@ public class DBInMemory {
         Author current = findAuthorById(author.getId());
         current.setFirstName(author.getFirstName());
         current.setLastName(author.getLastName());
-        current.setBooks(author.getBooks());
     }
 
 
     public void deleteBook(String id) {
         Book current = findBookById(id);
-        this.books.removeIf(book -> book.getId().equals(current.getId()));
+        current.setDeleted(true);
+        //this.books.removeIf(book -> book.getId().equals(current.getId()));
     }
     public void deleteAuthor(String id) {
         Author current = findAuthorById(id);

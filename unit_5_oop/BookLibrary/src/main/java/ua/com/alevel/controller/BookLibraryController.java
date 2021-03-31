@@ -79,14 +79,14 @@ public class BookLibraryController {
                 System.out.println("Enter first and last name:");
                 String aName = reader.readLine();
                  createAuthor(aName);
-                System.out.println("Enter number of their books:");
+               /* System.out.println("Enter number of their books:");
                 int books = Integer.parseInt(reader.readLine());
                 for (int i = 0; i < books; i++) {
                     System.out.print("Enter book #" + (i + 1) + ": ");
                     setBookToAuthor(aName.trim().split(" ")[0],
                             aName.trim().split(" ")[1], reader.readLine());
                     System.out.println();
-                }
+                }*/
                 break;
             default:
                 System.out.println("Wrong index");
@@ -95,13 +95,23 @@ public class BookLibraryController {
     public void createBook(String name) {
         Book b = new Book();
         b.setName(name);
-        bookService.create(b);
+        try{
+            bookService.create(b);
+        } catch(RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
     public void createAuthor(String name) {
         Author a = new Author();
         a.setFirstName(name.split(" ")[0]);
         a.setLastName(name.split(" ")[1]);
-        authorService.create(a);
+        try {
+            authorService.create(a);
+        } catch(RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
     public void setAuthorToBook(String bookName, String authorFirstName, String authorLastName) {
         List<Author> authors = new ArrayList<>();
@@ -129,7 +139,7 @@ public class BookLibraryController {
         bookService.update(bookToUpdate);
 
     }
-    public void setBookToAuthor(String authorFirstName, String authorLastName, String bookName) {
+    /*public void setBookToAuthor(String authorFirstName, String authorLastName, String bookName) {
         List<Book> books = new ArrayList<>();
 
         Author authorToUpdate =  authorService.findAll().stream()
@@ -151,26 +161,29 @@ public class BookLibraryController {
         authorToUpdate.setBooks(unique);
         authorService.update(authorToUpdate);
         setAuthorToBook(bookName, authorFirstName, authorLastName);
-    }
+    }*/
 
     @SneakyThrows
     public void read(String option) {
         switch(option){
             case "1":
                 for (Book book: bookService.findAll()) {
-                    readBook(book);
-                    System.out.println("Author(s): ");
-                    for (Author a:book.getAuthors()) {
-                        System.out.println(a.getFirstName() + " " + a.getLastName());
+                    if (!book.isDeleted()) {
+                        readBook(book);
+                        System.out.println("Author(s): ");
+                        for (Author a : book.getAuthors()) {
+                            System.out.println(a.getFirstName() + " " + a.getLastName());
+                        }
                     }
                 }
                 break;
             case "2":
                 for (Author author: authorService.findAll() ){
+
                     readAuthor(author);
                     System.out.println("Books: ");
-                    for (Book b: author.getBooks()) {
-                        System.out.println(b.getName());
+                    for(Book b:authorService.findByAuthor(author)) {
+                        System.out.println(b.getId() + " " + b.getName() + " " + b.getCreated());
                     }
             }
                 break;
@@ -211,7 +224,9 @@ public class BookLibraryController {
                 + author.getCreated());
     }
     public void readBook(Book book) {
-        System.out.println(book.getId() + " " + book.getName() + " " + book.getCreated());
+        if (!book.isDeleted()) {
+            System.out.println(book.getId() + " " + book.getName() + " " + book.getCreated());
+        }
     }
 
     public boolean authorExistsById(String id) {
@@ -239,21 +254,24 @@ public class BookLibraryController {
             System.out.println("Enter new last name: ");
             String lastName = reader.readLine();
             toUpdate.setLastName(lastName);
-            authorService.update(toUpdate);
-            System.out.println("Enter the number of their books: ");
-            int len = Integer.parseInt(reader.readLine());
-            for (int i = 0; i < len; i++) {
-                System.out.print("Enter book #" + (i + 1) + ":");
-                setBookToAuthor(firstName, lastName, reader.readLine());
-                System.out.println();
+            try {
+                authorService.update(toUpdate);
+            } catch(RuntimeException e) {
+                System.out.println(e.getMessage());
             }
+
+
 
         } else if (bookExistsById(id)){
             Book toUpdate = getBookById(id);
             System.out.println("Enter new book name:");
             String name = reader.readLine();
             toUpdate.setName(name);
-            bookService.update(toUpdate);
+            try {
+                bookService.update(toUpdate);
+            } catch(RuntimeException e) {
+                System.out.println(e.getMessage());
+            }
             System.out.println("Enter number of authors:");
             int len = Integer.parseInt(reader.readLine());
             for (int i = 0; i < len; i++) {

@@ -35,10 +35,10 @@ public class CreateTest {
 
         b.setName(bookStr);
         b.setAuthors(listA);
-        List<Book> listB = new ArrayList<>();
-        listB.add(b);
+        //List<Book> listB = new ArrayList<>();
+       // listB.add(b);
 
-        a.setBooks(listB);
+       // a.setBooks(listB);
         authorService.create(a);
         bookService.create(b);
 

@@ -7,10 +7,7 @@ import ua.com.alevel.dao.impl.AuthorService;
 import ua.com.alevel.dao.impl.BookService;
 import ua.com.alevel.entity.Author;
 import ua.com.alevel.entity.Book;
-import ua.com.alevel.methods.CreateTest;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,9 +40,7 @@ public class LibraryCommonTest {
         Assert.assertEquals(aPrevious + 3, aLast);
         Assert.assertEquals(bPrevious + 2, bLast);
 
-        setBookToAuthor("William", "Shakespeare", "Book1");
-        setBookToAuthor("Jane", "Austen", "Book2");
-        setBookToAuthor("John", "Smith", "Book1");
+
 
         deleteAll();
 
@@ -67,7 +62,7 @@ public class LibraryCommonTest {
         authorService.create(a);
     }
 
-    public void setBookToAuthor(String authorFirstName, String authorLastName, String bookName) {
+    /*public void setBookToAuthor(String authorFirstName, String authorLastName, String bookName) {
         List<Book> books = new ArrayList<>();
 
         Author authorToUpdate =  authorService.findAll().stream()
@@ -86,7 +81,7 @@ public class LibraryCommonTest {
         authorToUpdate.setBooks(books);
         authorService.update(authorToUpdate);
         setAuthorToBook(bookName, authorFirstName, authorLastName);
-    }
+    }*/
 
     public void setAuthorToBook(String bookName, String authorFirstName, String authorLastName) {
 
