@@ -34,6 +34,8 @@ public class BookLibraryController {
                 case "2":
                     System.out.println("1 - read all books");
                     System.out.println("2 - read all authors");
+                    System.out.println("3 - read all authors by book id");
+                    System.out.println("4 - read all books by author id");
                     System.out.println("0 - exit");
                     read(reader.readLine());
                     break;
@@ -151,11 +153,12 @@ public class BookLibraryController {
         setAuthorToBook(bookName, authorFirstName, authorLastName);
     }
 
+    @SneakyThrows
     public void read(String option) {
         switch(option){
             case "1":
                 for (Book book: bookService.findAll()) {
-                    System.out.println(book.getId() + " " + book.getName() + " " + book.getCreated());
+                    readBook(book);
                     System.out.println("Author(s): ");
                     for (Author a:book.getAuthors()) {
                         System.out.println(a.getFirstName() + " " + a.getLastName());
@@ -164,13 +167,36 @@ public class BookLibraryController {
                 break;
             case "2":
                 for (Author author: authorService.findAll() ){
-                System.out.println(author.getId() + " " + author.getFirstName() + " " + author.getLastName() + " "
-                + author.getCreated());
+                    readAuthor(author);
                     System.out.println("Books: ");
                     for (Book b: author.getBooks()) {
                         System.out.println(b.getName());
                     }
             }
+                break;
+            case "3":
+                System.out.println("Enter book's id:");
+                String id = reader.readLine();
+                if (bookExistsById(id)) {
+                    Book book = getBookById(id);
+                    for (Author a:authorService.findByBook(book)) {
+                        readAuthor(a);
+                    }
+                } else {
+                    System.out.println("Wrong id");
+                }
+                break;
+            case "4":
+                System.out.println("Enter author's id:");
+                String authorId = reader.readLine();
+                if (authorExistsById(authorId)) {
+                    Author author = getAuthorById(authorId);
+                    for (Book b:bookService.findByAuthor(author)) {
+                        readBook(b);
+                    }
+                }else {
+                    System.out.println("Wrong id");
+                }
                 break;
             case "0":
                 return;
@@ -180,12 +206,33 @@ public class BookLibraryController {
 
     }
 
+    public void readAuthor(Author author){
+        System.out.println(author.getId() + " " + author.getFirstName() + " " + author.getLastName() + " "
+                + author.getCreated());
+    }
+    public void readBook(Book book) {
+        System.out.println(book.getId() + " " + book.getName() + " " + book.getCreated());
+    }
+
+    public boolean authorExistsById(String id) {
+        return authorService.findAll().stream().anyMatch(a -> id.equals(a.getId()));
+    }
+    public Author getAuthorById(String id){
+       return authorService.findAll().stream().filter(a -> id.equals(a.getId()))
+                .findFirst().get();
+    }
+    public boolean bookExistsById(String id){
+        return bookService.findAll().stream().anyMatch(a -> id.equals(a.getId()));
+    }
+    public Book getBookById(String id) {
+        return bookService.findAll().stream().filter(a -> id.equals(a.getId())).findFirst().get();
+    }
+
     @SneakyThrows
     public void update(String id) {
 
-        if (authorService.findAll().stream().anyMatch(a -> id.equals(a.getId()))) {
-            Author toUpdate = authorService.findAll().stream().filter(a -> id.equals(a.getId()))
-                    .findFirst().get();
+        if (authorExistsById(id)) {
+            Author toUpdate = getAuthorById(id);
             System.out.println("Enter new first name: ");
             String firstName = reader.readLine();
             toUpdate.setFirstName(firstName);
@@ -201,8 +248,8 @@ public class BookLibraryController {
                 System.out.println();
             }
 
-        } else if (bookService.findAll().stream().anyMatch(a -> id.equals(a.getId()))){
-            Book toUpdate = bookService.findAll().stream().filter(a -> id.equals(a.getId())).findFirst().get();
+        } else if (bookExistsById(id)){
+            Book toUpdate = getBookById(id);
             System.out.println("Enter new book name:");
             String name = reader.readLine();
             toUpdate.setName(name);
@@ -223,12 +270,11 @@ public class BookLibraryController {
     }
 
     public void delete(String id) {
-       if( authorService.findAll().stream().anyMatch(a -> id.equals(a.getId()))) {
-           Author toDelete = authorService.findAll().stream().filter(a -> id.equals(a.getId()))
-                   .findFirst().get();
+       if( authorExistsById(id)) {
+           Author toDelete = getAuthorById(id);
            authorService.delete(toDelete);
-       } else if (bookService.findAll().stream().anyMatch(a -> id.equals(a.getId()))) {
-           Book toDelete = bookService.findAll().stream().filter(a -> id.equals(a.getId())).findFirst().get();
+       } else if (bookExistsById(id)) {
+           Book toDelete = getBookById(id);
            bookService.delete(toDelete);
        } else {
            System.out.println("Wrong id");
