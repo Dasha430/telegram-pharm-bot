@@ -93,14 +93,14 @@ public class CalendarImpl implements CalendarService {
             }
         }
         else if(splitedFormat.length > 0 && splitedFormat[0].contains("-")) {
-            String[] datesFormat = splitedFormat[0].split(" ");
+            String[] datesFormat = splitedFormat[0].split("-");
 
-            dates = splitedDate[0].split(" ");
+            dates = splitedDate;
             if (datesFormat.length > 4 || dates.length > 4) {
                 throw new RuntimeException("Wrong format");
             }
             cd = convertDate(dates, datesFormat, cd);
-            if (splitedFormat.length == 4 && splitedDate.length == 4) {
+            if (splitedFormat.length == 2 && splitedDate.length == 4) {
                 if (splitedFormat[splitedFormat.length - 1].contains(":") && splitedDate[splitedDate.length - 1].contains(":")){
                     String[] time = splitedDate[splitedDate.length - 1].split(":");
 
@@ -132,10 +132,11 @@ public class CalendarImpl implements CalendarService {
     private CalendarDate convertDate(String[] dates, String[] datesFormat, CalendarDate d) {
         CalendarDate cd = d;
         for (int i = 0; i < dates.length; i++) {
+            if(dates[i].contains(":")) {
+                return cd;
+            }
             if (!isNotValid(datesFormat[i]) ){
-                if(datesFormat[i].contains(":")) {
-                    return cd;
-                }
+
                 switch (datesFormat[i]) {
                     case "d":
                         if (!isNotValid(dates[i]) ) {
@@ -186,7 +187,7 @@ public class CalendarImpl implements CalendarService {
     }
 
     @Override
-    public CalendarDate addDates(CalendarDate date1, long time, String units) {
+    public CalendarDate addToDate(CalendarDate date1, long time, String units) {
 
         long sum = toMilliseconds(date1) + timeToMs(time, units);
         return toDate(sum);
@@ -234,14 +235,14 @@ public class CalendarImpl implements CalendarService {
                 break;
             case "centuries":
                 long c = 0;
-                for (int i = 0; i < time; i++) {
+                for (int i = 0; i < time * 100; i++) {
                     if (isLeapYear(i)) {
                         c += millisecondsADay * 366;
                     } else {
                         c += millisecondsADay * 365;
                     }
                 }
-                time = c / 100;
+                time = c;
                 break;
             default:
                 throw new RuntimeException("no such unit");
@@ -435,7 +436,7 @@ public class CalendarImpl implements CalendarService {
         }
 
         long seconds = ms / millisecondsASecond;
-        cd.setMinutes(Long.toString(seconds));
+        cd.setSeconds(Long.toString(seconds));
         if (seconds != 0) {
             ms %= (millisecondsASecond * seconds);
         }

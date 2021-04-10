@@ -7,7 +7,7 @@ import java.util.List;
 public interface CalendarService {
     CalendarDate convertToDate(String date, String format);
     long findDifference(CalendarDate date1, CalendarDate date2, String units);
-    CalendarDate addDates(CalendarDate date1, long time, String units);
+    CalendarDate addToDate(CalendarDate date1, long time, String units);
     CalendarDate subtractFromDate(CalendarDate date1, long time, String units);
     long toMilliseconds(CalendarDate cd);
     void changeFormat(CalendarDate date, String format);
