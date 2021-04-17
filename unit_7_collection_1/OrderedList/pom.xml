@@ -47,7 +47,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>ua.com.alevel.CalendarAppMain</mainClass>
+                            <mainClass>ua.com.alevel.OrderedListMain</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
