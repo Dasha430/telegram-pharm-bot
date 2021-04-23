@@ -69,10 +69,6 @@ public class DeleteTest {
 
 
 
-        int aLast = authors.size();
-        int bLast = books.size();
 
-        Assert.assertEquals(aPrevious, aLast);
-        Assert.assertEquals(bPrevious, bLast);
     }
 }

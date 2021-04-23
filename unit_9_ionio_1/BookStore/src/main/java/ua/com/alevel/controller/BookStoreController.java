@@ -248,11 +248,7 @@ public class BookStoreController {
             System.out.println("Enter new book name:");
             String name = reader.readLine();
             toUpdate.setName(name);
-            try {
-                bookService.update(toUpdate);
-            } catch(RuntimeException e) {
-                System.out.println(e.getMessage());
-            }
+
 
             List<Integer> books = new ArrayList<>();
             List<Integer> authors = new ArrayList<>();
@@ -265,7 +261,7 @@ public class BookStoreController {
                 System.out.print("Enter author #" + (i + 1) + " id: ");
                 int authorId = Integer.parseInt(reader.readLine());
                 if (authorExistsById(authorId)) {
-                    Author a = new Author();
+                    Author a = getAuthorById(authorId);
                     if (!a.getBooks().contains(toUpdate.getId())) {
                         books.addAll(a.getBooks());
                         a.setBooks(books);
