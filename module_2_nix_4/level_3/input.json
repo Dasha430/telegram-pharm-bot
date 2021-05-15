@@ -1,0 +1,44 @@
+[
+  {
+    "number": "7"
+  },
+  {
+    "name": "kyiv",
+    "neighbours number": "3",
+    "index cost": ["2 141", "3 344", "5 269"]
+  },
+  {
+    "name": "chernygov",
+    "neighbours number": "3",
+    "index cost": ["1 141", "3 406", "7 306"]
+  },
+  {
+    "name": "poltava",
+    "neighbours number": "4",
+    "index cost": ["1 344","2 406", "6 143", "4 197"]
+  },
+  {
+    "name": "dnipro",
+    "neighbours number": "2",
+    "index cost": ["3 197", "6 218"]
+  },
+  {
+    "name": "vinnitsa",
+    "neighbours number": "1",
+    "index cost": ["1 141"]
+  },
+  {
+    "name": "kharkiv",
+    "neighbours number": "3",
+    "index cost": ["3 143", "4 218", "7 183"]
+  },
+  {
+    "name": "sumy",
+    "neighbours number": "2",
+    "index cost": ["2 306", "6 183"]
+  },
+  {
+    "routes_count": "2",
+    "routes": ["vinnitsa sumy", "kharkiv kyiv"]
+  }
+]
