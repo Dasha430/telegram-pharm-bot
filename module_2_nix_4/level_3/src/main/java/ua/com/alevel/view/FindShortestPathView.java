@@ -20,7 +20,7 @@ public class FindShortestPathView {
 
         FindShortestPathController controller = new FindShortestPathController();
 
-        File inputFile = new File("C:\\java projects\\nix-4\\module_2_nix_4\\level_3\\input.json");
+        File inputFile = new File("level_3\\input.json");
         String outputFile = "output.txt";
         try {
             String json = FileUtils.readFileToString(inputFile, "UTF-8");

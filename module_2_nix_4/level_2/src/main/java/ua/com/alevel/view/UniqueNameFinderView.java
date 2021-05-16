@@ -14,7 +14,7 @@ public class UniqueNameFinderView {
     public void run() throws IOException {
         UniqueNameFinderController controller = new UniqueNameFinderController();
         System.out.println("File names.txt contains names:");
-        List<String> allNames = Files.readAllLines(Paths.get("C:\\java projects\\nix-4\\module_2_nix_4\\level_2\\names.txt"),
+        List<String> allNames = Files.readAllLines(Paths.get("level_2\\names.txt"),
                 StandardCharsets.UTF_8);
         for (String name: allNames) {
             System.out.println(name);

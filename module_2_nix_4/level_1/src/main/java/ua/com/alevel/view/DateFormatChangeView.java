@@ -12,7 +12,7 @@ public class DateFormatChangeView {
 
     private final DateFormatChangeController controller = new DateFormatChangeController();
     public void run() throws IOException {
-        List<String> allDates = Files.readAllLines(Paths.get("C:\\java projects\\nix-4\\module_2_nix_4\\level_1\\dates.txt"),
+        List<String> allDates = Files.readAllLines(Paths.get("level_1\\dates.txt"),
                 StandardCharsets.UTF_8);
         System.out.println("File dates.txt contains dates:");
         for (String date: allDates) {
