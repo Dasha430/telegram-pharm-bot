@@ -1,16 +1,16 @@
 package ua.com.alevel.models;
 
-import lombok.Value;
+import lombok.Getter;
 
-@Value
-public class Route {
-    public int id;
-    public int from_id;
-    public int to_id;
-    public int cost;
+@Getter
+public class Route extends AbstractModel{
+
+    int from_id;
+    int to_id;
+    int cost;
 
     public Route(int id, int from_id, int to_id, int cost) {
-        this.id = id;
+        super(id);
         this.from_id = from_id;
         this.to_id = to_id;
         this.cost = cost;

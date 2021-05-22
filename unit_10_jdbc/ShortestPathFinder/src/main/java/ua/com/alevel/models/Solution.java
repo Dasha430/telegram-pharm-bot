@@ -1,14 +1,13 @@
 package ua.com.alevel.models;
 
-import lombok.Value;
+import lombok.Getter;
 
-@Value
-public class Solution {
-    private int problem_id;
-    private int cost;
+@Getter
+public class Solution extends AbstractModel{
+    int cost;
 
     public Solution(int problem_id, int cost) {
-        this.problem_id = problem_id;
+        super(problem_id);
         this.cost = cost;
     }
 }

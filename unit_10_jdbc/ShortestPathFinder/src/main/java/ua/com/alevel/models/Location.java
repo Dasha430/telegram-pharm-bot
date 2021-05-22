@@ -1,15 +1,14 @@
 package ua.com.alevel.models;
 
-import lombok.Value;
+import lombok.Getter;
 
 
-@Value
-public class Location {
-    public int id;
-    public String name;
+@Getter
+public class Location extends AbstractModel{
+    String name;
 
     public Location(int id, String name) {
-        this.id = id;
+        super(id);
         this.name = name;
     }
 }

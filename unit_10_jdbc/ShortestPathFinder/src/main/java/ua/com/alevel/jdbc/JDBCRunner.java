@@ -2,8 +2,10 @@ package ua.com.alevel.jdbc;
 
 
 import org.apache.log4j.Logger;
+import ua.com.alevel.models.Location;
+import ua.com.alevel.models.Problem;
+import ua.com.alevel.models.Route;
 import ua.com.alevel.models.Solution;
-import ua.com.alevel.util.ShortestPathFinderUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,77 +19,157 @@ public class JDBCRunner {
 
     private final Logger logger = Logger.getLogger(JDBCRunner.class);
 
-    public void run() {
+    private final Properties properties = loadProperties();
 
-        Properties properties = loadProperties();
+    private final String url = properties.getProperty("url");
+    private final String username = properties.getProperty("user");
+    private final String password = properties.getProperty("password");
 
-        String url = properties.getProperty("url");
-        String username = properties.getProperty("user");
-        String password = properties.getProperty("password");
-
+    public int getLocationsNumber() {
         logger.info("Connecting to " + url);
-        try (Connection connection = DriverManager.getConnection(url, username, password)){
+        try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
             connection.setAutoCommit(false);
             logger.info("Getting number of locations from DB");
-            int number = countCities(connection);
-            int[][] sumMatrix = createEmptySumMatrix(number);
 
-            logger.info("Getting all routes from DB");
-            try (Statement getAllRoutes = connection.createStatement()) {
-                ResultSet rs = getAllRoutes.executeQuery("SELECT * FROM route");
-                while (rs.next()) {
-                    int from = rs.getInt("from_id");
-                    int to = rs.getInt("to_id");
-                    int cost = rs.getInt("cost");
-                    sumMatrix[from - 1][to - 1] = cost;
-                    sumMatrix[to - 1][from - 1] = cost;
+            try (Statement getAllLocationsNumber = connection.createStatement()) {
+                ResultSet rs = getAllLocationsNumber.executeQuery("SELECT COUNT(*) FROM location");
+                if (rs.next()) {
+                    return rs.getInt(1);
                 }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
             }
 
-            logger.info("Getting all problems from DB");
-            List<Solution> solutions = new ArrayList<>();
-            try (Statement getAllProblems = connection.createStatement()) {
-                ResultSet rs = getAllProblems.executeQuery("SELECT * FROM problem");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return 0;
+    }
+
+    public List<Location> getAllLocations() {
+        List<Location> locations = new ArrayList<>();
+        logger.info("Connecting to " + url);
+        try (Connection connection = DriverManager.getConnection(url, properties)) {
+            connection.setAutoCommit(false);
+
+            try (Statement getAll = connection.createStatement()) {
+                logger.info("Getting all locations from DB");
+                ResultSet rs = getAll.executeQuery("SELECT * FROM location");
+
                 while (rs.next()) {
-                    int problemId = rs.getInt("id");
-                    int from = rs.getInt("from_id");
-                    int to = rs.getInt("to_id");
-
-                    logger.info("Calculating result");
-                    int solutionCost = ShortestPathFinderUtil.find(number, from, to, sumMatrix);
-                    logger.info("Finish calculating result");
-                    Solution solution = new Solution(problemId, solutionCost);
-                    solutions.add(solution);
-
+                    Location l = new Location(rs.getInt("id"),
+                            rs.getString("locationName"));
+                    locations.add(l);
                 }
+                return locations;
             }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
 
+    public List<Route> getAllRoutes() {
+        List<Route> routes = new ArrayList<>();
+        logger.info("Connecting to " + url);
+        try (Connection connection = DriverManager.getConnection(url, properties)) {
+            connection.setAutoCommit(false);
+
+            try (Statement getAll = connection.createStatement()) {
+                logger.info("Getting all routes from DB");
+                ResultSet rs = getAll.executeQuery("SELECT * FROM route");
+
+                while (rs.next()) {
+                    Route r = new Route(rs.getInt("id"),
+                            rs.getInt("from_id"),
+                            rs.getInt("to_id"),
+                            rs.getInt("cost"));
+                    routes.add(r);
+                }
+                return routes;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Problem> getAllProblems() {
+        logger.info("Connecting to " + url);
+        List<Problem> problems = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection(url, properties)) {
+            connection.setAutoCommit(false);
+
+            try (Statement getAll = connection.createStatement()) {
+                logger.info("Getting all problems from DB");
+                ResultSet rs = getAll.executeQuery("SELECT * FROM problem");
+
+                while (rs.next()) {
+                    Problem p = new Problem(rs.getInt("id"),
+                            rs.getInt("from_id"),
+                            rs.getInt("to_id"));
+                    problems.add(p);
+                }
+                return problems;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Solution> getAllSolutions() {
+        logger.info("Connecting to " + url);
+        List<Solution> solutions = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection(url, properties)) {
+            connection.setAutoCommit(false);
+
+            try (Statement getAll = connection.createStatement()) {
+                logger.info("Getting all solutions from DB");
+                ResultSet rs = getAll.executeQuery("SELECT * FROM solution");
+
+                while (rs.next()) {
+                    Solution s = new Solution(rs.getInt("problem_id"),
+                            rs.getInt("cost"));
+                    solutions.add(s);
+                }
+                return solutions;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    public void createSolutions(List<Solution> solutions) {
+        try (Connection connection = DriverManager.getConnection(url, properties)) {
+            connection.setAutoCommit(false);
             logger.info("Inserting solutions into DB");
             try (PreparedStatement insertSolution = connection.prepareStatement(
                     "INSERT IGNORE INTO solution (problem_id, cost) VALUES (?, ?) ")) {
 
                 for (Solution s : solutions) {
-                    insertSolution.setInt(1, s.getProblem_id());
+                    insertSolution.setInt(1, s.getId());
                     insertSolution.setInt(2, s.getCost());
 
                     insertSolution.addBatch();
                 }
 
                 insertSolution.executeBatch();
-            } catch(SQLException e) {
+            } catch (SQLException e) {
                 connection.rollback();
                 throw new RuntimeException(e);
             }
 
             connection.commit();
 
-        } catch (SQLException e) {
-            logger.info("Connection failed");
-            System.out.println(e.getMessage());
 
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
     }
+
 
     public Properties loadProperties() {
 
@@ -102,26 +184,5 @@ public class JDBCRunner {
         return properties;
     }
 
-    private int countCities(Connection connection) {
-        try (Statement getAllLocationsNumber = connection.createStatement()) {
-            ResultSet rs = getAllLocationsNumber.executeQuery("SELECT COUNT(*) FROM location");
-            if (rs.next()) {
-                return rs.getInt(1);
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return 0;
-    }
 
-    public int[][] createEmptySumMatrix(int number) {
-        int[][] sumMatrix = new int[number][number];
-        for (int i = 0; i < number; i++) {
-            for (int j = 0; j < number; j++) {
-                sumMatrix[i][j] = 0;
-            }
-        }
-
-        return sumMatrix;
-    }
 }
