@@ -22,7 +22,7 @@ public class ProgrammingCoursesMain {
             Session session = sf.openSession()) {
             EntityManager em = sf.createEntityManager();
 
-            Supplier<EntityManager> supplier = ()->{return em;};
+            Supplier<EntityManager> supplier = () ->  {return em;};
             JpaProgrammingCoursesService service = new JpaProgrammingCoursesService(supplier) ;
             Course course = service.createCourse("Java");
             Group group1 = service.createGroup("Group1", course);
@@ -86,6 +86,8 @@ public class ProgrammingCoursesMain {
             TeacherGroupDto teacherGroupDto = service.findMostSuccessfulGroupByTeacherId(teacherId);
             System.out.println("The most successful group:");
             System.out.println(teacherGroupDto.getName() + " course: " + teacherGroupDto.getCourse().getName());
+
+            session.close();
 
         }
     }
