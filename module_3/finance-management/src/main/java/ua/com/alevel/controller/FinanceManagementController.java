@@ -69,6 +69,7 @@ public class FinanceManagementController {
                                     break;
                                 case "5":
                                     category = "other";
+                                    break;
                                 default:
                                     throw new WrongInputException("1 - 5", category);
                             }
