@@ -29,13 +29,16 @@ public class Checker implements Runnable{
 
             try {
                 Thread.sleep(500);
-                if (!check() && !"quit".equalsIgnoreCase(this.toCheck)) {
+                if ("quit".equalsIgnoreCase(this.toCheck)) {
+                    break;
+                }
+                if (!check() ) {
                     this.input = this.toCheck;
 
                     writeToFile(this.input);
                 }
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
 
         }
