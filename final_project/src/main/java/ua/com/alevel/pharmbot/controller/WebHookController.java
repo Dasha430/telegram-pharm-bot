@@ -8,11 +8,11 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import ua.com.alevel.pharmbot.bot.PharmBot;
 
 @RestController
-public class WebHook {
+public class WebHookController {
 
     private final PharmBot bot;
 
-    public WebHook(PharmBot bot) {
+    public WebHookController(PharmBot bot) {
         this.bot = bot;
     }
 

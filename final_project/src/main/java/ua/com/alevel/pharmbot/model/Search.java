@@ -1,4 +1,4 @@
-package ua.com.alevel.model;
+package ua.com.alevel.pharmbot.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +25,14 @@ public class Search {
 
     public Search() {
         searchedAt = Instant.now();
+    }
+
+    public void setMedicine(Medicine medicine) {
+        this.pk.setMedicine(medicine);
+    }
+
+    public void setUser(User user) {
+        this.pk.setUser(user);
     }
 
 }

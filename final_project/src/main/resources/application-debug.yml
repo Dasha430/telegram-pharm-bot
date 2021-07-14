@@ -1,0 +1,3 @@
+logging:
+  level:
+    com.alevel.java.pharmbot: debug

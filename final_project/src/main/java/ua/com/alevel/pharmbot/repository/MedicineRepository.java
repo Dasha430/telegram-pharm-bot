@@ -1,20 +1,20 @@
-package ua.com.alevel.repository;
+package ua.com.alevel.pharmbot.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import ua.com.alevel.model.Medicine;
+import ua.com.alevel.pharmbot.model.FormName;
+import ua.com.alevel.pharmbot.model.Medicine;
 
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 public interface MedicineRepository extends JpaRepository<Medicine, UUID> {
 
-    Optional<Medicine> findById(UUID id);
+    Optional<Medicine> findFirstByNameAndForm_Name(String name, FormName formName);
 
-    @Query("select m.instruction from Medicine m where m.id = :id")
-    String findInstructionById(UUID id);
+    List<Medicine> findByName(String name);
 
-
+    Optional<Medicine> findFirstByName(String name);
 
 }

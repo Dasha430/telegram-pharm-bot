@@ -1,0 +1,42 @@
+package ua.com.alevel.pharmbot.service.impl;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import ua.com.alevel.pharmbot.bot.PharmBot;
+import ua.com.alevel.pharmbot.model.records.MedInPharmacyRecord;
+import ua.com.alevel.pharmbot.service.MessageService;
+
+
+
+@Service
+@Slf4j
+public class MessageServiceImpl implements MessageService {
+    private final PharmBot bot;
+
+    public MessageServiceImpl(PharmBot bot) {
+        this.bot = bot;
+    }
+
+    @Override
+    public String buildMessage(Long id, MedInPharmacyRecord record) {
+        log.info("Building message");
+        StringBuilder output;
+        if (record == null ) {
+            log.info("No information");
+            return null;
+        }
+        output = new StringBuilder("");
+        output.append(record.getPharmacy().getName() + "\n");
+        output.append("Address: " + record.getPharmacy().getAddress() + "\n");
+        output.append("Price: " + record.getPrice());
+        log.info("Message was built successfully");
+        return output.toString();
+    }
+
+    @Override
+    public void sendMessage(Long id, String text) {
+        log.info("Sending message");
+        bot.sendMessage(id, text);
+        log.info("Message was sent");
+    }
+}

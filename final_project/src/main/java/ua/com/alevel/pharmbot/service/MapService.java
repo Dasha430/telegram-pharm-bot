@@ -1,8 +1,12 @@
-package ua.com.alevel.service;
+package ua.com.alevel.pharmbot.service;
 
 import java.util.List;
 import java.util.Map;
 
 public interface MapService {
-    Map<Double, String> calculateDistances(Map<String, Double> from, List<Map<String, Double>> destinations);
+    List<String> calculateNearestDistances(String fromAddress, List<String> tos);
+
+    Map<String, Double> toGeoCoordinates(String address);
+
+    String geocodeToString(Map<String, Double> geocode);
 }

@@ -1,4 +1,4 @@
-package ua.com.alevel.model;
+package ua.com.alevel.pharmbot.model;
 
 import lombok.Getter;
 import lombok.Setter;

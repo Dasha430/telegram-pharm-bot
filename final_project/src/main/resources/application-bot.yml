@@ -1,0 +1,9 @@
+telegram:
+  bot:
+    username: pharm_ua_bot
+    token: 1820050114:AAHVvoE3fGJrwglU07WvVuQ_PZMkNdQmSXY
+    proxyType: SOCKS5
+    proxyHost: localhost
+    proxyPort: 9150
+    webhook:
+      path: https://bfb0107a3d0f.ngrok.io

@@ -1,2 +1,56 @@
-package ua.com.alevel.pharmbot.service;public class UserService {
+package ua.com.alevel.pharmbot.service;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import ua.com.alevel.pharmbot.model.User;
+import ua.com.alevel.pharmbot.repository.UserRepository;
+
+@Service
+@Slf4j
+public class UserService {
+
+    private UserRepository repo;
+    private MapService mapService;
+
+    public void createUser(Long chatId) {
+        log.info("Start creating user " + chatId);
+        if (!repo.existsByChatId(chatId)) {
+            User u = new User(chatId);
+            repo.save(u);
+            log.info("User created");
+            return;
+        }
+        log.info("User already exists");
+    }
+
+    public User getById(Long chatId) {
+        log.info("Getting user by id");
+        User u = repo.getById(chatId);
+        log.info("User was obtained");
+        return  u;
+    }
+
+    public void updateUserAddress(String address, Long chatId) {
+        String geocode = mapService.geocodeToString(mapService.toGeoCoordinates(address));
+
+        log.info("Updating user address");
+        repo.setAddress(address, geocode, chatId);
+        log.info("Finish updating user address");
+    }
+
+    public boolean userHasAddress(Long chatId) {
+        User u = repo.getById(chatId);
+        return u.getCurrentAddress() != null;
+    }
+
+    public String getUserAddress(Long chatId) {
+        User u = repo.getById(chatId);
+        return u.getCurrentAddress();
+    }
+
+    public String getUserAddressGeoCode(Long chatId) {
+        User u = repo.getById(chatId);
+        return u.getCurrentAddressGeoCode();
+    }
+
 }

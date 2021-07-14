@@ -1,13 +1,10 @@
-package ua.com.alevel.model;
+package ua.com.alevel.pharmbot.model;
 
 public enum FormName {
     TABLET,
     LIQUID,
     CAPSULES,
     TOPICAL,
-    SUPPOSITORIES,
-    DROPS,
-    INHALER,
     INJECTION,
     OTHER;
 }

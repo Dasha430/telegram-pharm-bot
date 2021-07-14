@@ -1,4 +1,4 @@
-package ua.com.alevel.model;
+package ua.com.alevel.pharmbot.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,9 +18,20 @@ public class User {
     @NaturalId
     private Long chatId;
 
-    @Column(nullable = false)
-    private String username;
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.user")
     private List<Search> searchHistory = new ArrayList<>();
+
+    @Column(name = "current_address")
+    private String currentAddress;
+
+    @Column(name = "current_address_geocode")
+    private String currentAddressGeoCode;
+
+    public User(){
+
+    }
+
+    public User(Long chatId){
+        this.chatId = chatId;
+    }
 }
