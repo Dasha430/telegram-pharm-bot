@@ -15,12 +15,12 @@ import java.util.List;
 @Component
 public class FindMedsCommandHandler implements MessageHandler{
 
-    private final UserDataCache cache;
-    private final FindMedicineService medicineService;
-    private final UserService userService;
-    private final ReplyMessageService replyService;
-    private final SearchHistoryService searchService;
-    private final MessageService messageService;
+    private UserDataCache cache;
+    private FindMedicineService medicineService;
+    private UserService userService;
+    private ReplyMessageService replyService;
+    private SearchHistoryService searchService;
+    private MessageService messageService;
 
 
 

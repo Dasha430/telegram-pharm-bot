@@ -12,15 +12,21 @@ public class UserService {
     private UserRepository repo;
     private MapService mapService;
 
-    public void createUser(Long chatId) {
+    public UserService(UserRepository repo, MapService mapService) {
+        this.repo = repo;
+        this.mapService = mapService;
+    }
+
+    public User createUser(Long chatId) {
         log.info("Start creating user " + chatId);
         if (!repo.existsByChatId(chatId)) {
             User u = new User(chatId);
             repo.save(u);
             log.info("User created");
-            return;
+            return u;
         }
         log.info("User already exists");
+        return null;
     }
 
     public User getById(Long chatId) {

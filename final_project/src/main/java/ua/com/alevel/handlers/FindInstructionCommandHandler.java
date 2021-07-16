@@ -20,9 +20,9 @@ import java.util.Set;
 @Component
 public class FindInstructionCommandHandler implements MessageHandler {
 
-    private final UserDataCache cache;
-    private final MedicineInstructionService instructionService;
-    private final ReplyMessageService replyService;
+    private UserDataCache cache;
+    private MedicineInstructionService instructionService;
+    private ReplyMessageService replyService;
 
 
     public FindInstructionCommandHandler(UserDataCache cache,

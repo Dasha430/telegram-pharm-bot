@@ -23,9 +23,6 @@ public class Medicine {
     @Column
     private String instruction;
 
-    @Column(name = "expire_at",nullable = false)
-    private Instant expireAt;
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Form form;
 
@@ -35,8 +32,5 @@ public class Medicine {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.medicine", cascade = CascadeType.ALL)
     private List<Search> searched = new ArrayList<>();
 
-    public boolean isExpired() {
-        return Instant.now().isAfter(this.expireAt);
-    }
 
 }

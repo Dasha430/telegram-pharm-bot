@@ -5,7 +5,6 @@ spring:
       dev:
         - local-dev
         - debug
-        - bot
   jpa:
     open-in-view: false
 server:
@@ -18,3 +17,13 @@ management:
   endpoint:
     health:
       show-details: always
+
+telegram:
+  bot:
+    username: pharm_ua_bot
+    token: 1820050114:AAHVvoE3fGJrwglU07WvVuQ_PZMkNdQmSXY
+    proxyType: SOCKS5
+    proxyHost: localhost
+    proxyPort: 9150
+    webhook:
+      path: https://e5fb8a01656e.ngrok.io

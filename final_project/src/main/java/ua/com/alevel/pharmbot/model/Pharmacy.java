@@ -25,7 +25,7 @@ public class Pharmacy {
     @Column(nullable = false, unique = true)
     private String address;
 
-    @Column(name = "adress_geocode")
+    @Column(name = "address_geocode")
     private String addressGeocode;
 
     @Column(name = "start_work_at", nullable = false)

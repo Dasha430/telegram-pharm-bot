@@ -21,6 +21,7 @@ public class Search {
     @EmbeddedId
     private SearchId pk = new SearchId();
 
+    @Column(name = "searched_at")
     private Instant searchedAt;
 
     public Search() {

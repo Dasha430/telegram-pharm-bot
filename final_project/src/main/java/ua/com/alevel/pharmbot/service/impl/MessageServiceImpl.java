@@ -1,6 +1,7 @@
 package ua.com.alevel.pharmbot.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import ua.com.alevel.pharmbot.bot.PharmBot;
 import ua.com.alevel.pharmbot.model.records.MedInPharmacyRecord;
@@ -13,7 +14,7 @@ import ua.com.alevel.pharmbot.service.MessageService;
 public class MessageServiceImpl implements MessageService {
     private final PharmBot bot;
 
-    public MessageServiceImpl(PharmBot bot) {
+    public MessageServiceImpl(@Lazy PharmBot bot) {
         this.bot = bot;
     }
 

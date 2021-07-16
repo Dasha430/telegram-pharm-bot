@@ -17,6 +17,11 @@ public class BotFacade {
     private PharmBotStateContext context;
     private UserDataCache cache;
 
+    public BotFacade(PharmBotStateContext context, UserDataCache cache) {
+        this.context = context;
+        this.cache = cache;
+    }
+
     public SendMessage handleUpdate(Update update) {
         SendMessage reply = null;
 
@@ -49,6 +54,9 @@ public class BotFacade {
                 break;
             case MainMenuService.SEARCH_HISTORY_BUTTON:
                 state = PharmBotState.SEARCH_HISTORY_REQUEST;
+                break;
+            case "/start":
+                state = PharmBotState.SHOW_MAIN_MENU;
                 break;
             default:
                 state = cache.getUsersCurrentBotState(chatId);

@@ -1,22 +1,27 @@
 package ua.com.alevel.pharmbot.bot.state;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import ua.com.alevel.handlers.MessageHandler;
 
+import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Component
 public class PharmBotStateContext {
 
-    private Map<PharmBotState, MessageHandler> handlers = new HashMap<>();
+    private final Map<PharmBotState, MessageHandler> handlers = new HashMap<>();
 
-    public PharmBotStateContext(List<MessageHandler> messageHandlers) {
-        messageHandlers.forEach(handler -> handlers.put(handler.getName(), handler));
+    @Autowired
+    public PharmBotStateContext(List<MessageHandler> handlers) {
+        handlers.forEach(handler -> this.handlers.put(handler.getName(), handler));
     }
+
 
     public SendMessage process(Message message, PharmBotState current) {
         MessageHandler handler = findCorrespondingHandler(current);

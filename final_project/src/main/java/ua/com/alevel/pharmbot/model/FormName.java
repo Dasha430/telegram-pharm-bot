@@ -6,5 +6,5 @@ public enum FormName {
     CAPSULES,
     TOPICAL,
     INJECTION,
-    OTHER;
+    OTHER
 }
