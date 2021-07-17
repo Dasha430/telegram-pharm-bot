@@ -6,6 +6,7 @@ import lombok.Getter;
 import ua.com.alevel.pharmbot.model.Medicine;
 import ua.com.alevel.pharmbot.model.Pharmacy;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 @AllArgsConstructor
@@ -13,5 +14,5 @@ import java.math.BigInteger;
 public class MedInPharmacyRecord {
     private Medicine medicine;
     private Pharmacy pharmacy;
-    private BigInteger price;
+    private BigDecimal price;
 }

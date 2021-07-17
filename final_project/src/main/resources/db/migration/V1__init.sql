@@ -26,7 +26,7 @@ create table pharmacies(
     id              uuid not null primary key,
     name            varchar not null,
     address         varchar unique not null,
-    address_geocode varchar unique,
+    address_geocode varchar,
     start_work_at   time not null,
     finish_work_at  time not null
 );
@@ -34,7 +34,7 @@ create table pharmacies(
 create table medicine_in_pharmacy (
     medicine_id uuid not null,
     pharmacy_id uuid not null,
-    price       bigint not null,
+    price       numeric(6,2) not null,
     number      bigint not null,
 
     primary key (medicine_id, pharmacy_id),
@@ -51,11 +51,11 @@ create table users(
 );
 
 create table searches (
+    id serial primary key ,
     medicine_id uuid not null,
     user_id bigint not null,
     searched_at timestamp default now(),
 
-    primary key (medicine_id, user_id),
     constraint search_medicine_fk foreign key (medicine_id)
                       references medicines(id),
     constraint search_user_fk foreign key (user_id)

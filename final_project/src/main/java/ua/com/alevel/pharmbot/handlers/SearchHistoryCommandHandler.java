@@ -1,4 +1,4 @@
-package ua.com.alevel.handlers;
+package ua.com.alevel.pharmbot.handlers;
 
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;

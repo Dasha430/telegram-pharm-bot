@@ -2,6 +2,7 @@ package ua.com.alevel.pharmbot.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.pharmbot.model.User;
 import ua.com.alevel.pharmbot.repository.UserRepository;
 
@@ -36,6 +37,7 @@ public class UserService {
         return  u;
     }
 
+    @Transactional
     public void updateUserAddress(String address, Long chatId) {
         String geocode = mapService.geocodeToString(mapService.toGeoCoordinates(address));
 
@@ -44,16 +46,19 @@ public class UserService {
         log.info("Finish updating user address");
     }
 
+    @Transactional
     public boolean userHasAddress(Long chatId) {
         User u = repo.getById(chatId);
         return u.getCurrentAddress() != null;
     }
 
+    @Transactional
     public String getUserAddress(Long chatId) {
         User u = repo.getById(chatId);
         return u.getCurrentAddress();
     }
 
+    @Transactional
     public String getUserAddressGeoCode(Long chatId) {
         User u = repo.getById(chatId);
         return u.getCurrentAddressGeoCode();

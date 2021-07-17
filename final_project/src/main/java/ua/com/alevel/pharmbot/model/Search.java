@@ -14,7 +14,7 @@ import java.time.Instant;
         @AssociationOverride(name = "pk.medicine",
                 joinColumns = @JoinColumn(name = "medicine_id")),
         @AssociationOverride(name = "pk.user",
-                joinColumns = @JoinColumn(name = "pharmacy_id")) })
+                joinColumns = @JoinColumn(name = "user_id")) })
 
 public class Search {
 

@@ -109,7 +109,18 @@
                 <artifactId>springdoc-openapi-maven-plugin</artifactId>
                 <version>1.0</version>
             </plugin>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>5.2.4</version>
+                <configuration>
+                    <url>jdbc:postgresql://localhost:5432/pharmacy</url>
+                    <user>postgres</user>
+                    <password>password</password>
+                </configuration>
+            </plugin>
         </plugins>
+
     </build>
 
 </project>

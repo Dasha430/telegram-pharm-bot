@@ -9,7 +9,7 @@ import java.util.Locale;
 @Service
 public class UkraineLocaleService implements LocaleService {
 
-    private Locale locale = new Locale("uk", "UA");
+    private Locale locale = Locale.UK;
     private MessageSource source;
 
     public UkraineLocaleService(MessageSource source) {

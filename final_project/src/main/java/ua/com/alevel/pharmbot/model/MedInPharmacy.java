@@ -4,12 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "med_in_pharmacy")
+@Table(name = "medicine_in_pharmacy")
 @AssociationOverrides({
         @AssociationOverride(name = "pk.medicine",
                 joinColumns = @JoinColumn(name = "medicine_id")),
@@ -21,7 +22,7 @@ public class MedInPharmacy {
     private MedInPharmacyId pk = new MedInPharmacyId();
 
     @Column(nullable = false)
-    private BigInteger price;
+    private BigDecimal price;
 
     @Column(nullable = false)
     private long number;

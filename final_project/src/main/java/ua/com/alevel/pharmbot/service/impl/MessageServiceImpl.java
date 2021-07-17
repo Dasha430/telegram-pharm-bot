@@ -3,8 +3,10 @@ package ua.com.alevel.pharmbot.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.pharmbot.bot.PharmBot;
 import ua.com.alevel.pharmbot.model.records.MedInPharmacyRecord;
+import ua.com.alevel.pharmbot.repository.MedicineRepository;
 import ua.com.alevel.pharmbot.service.MessageService;
 
 
@@ -12,10 +14,12 @@ import ua.com.alevel.pharmbot.service.MessageService;
 @Service
 @Slf4j
 public class MessageServiceImpl implements MessageService {
-    private final PharmBot bot;
+    private PharmBot bot;
+    private MedicineRepository repo;
 
-    public MessageServiceImpl(@Lazy PharmBot bot) {
+    public MessageServiceImpl(@Lazy PharmBot bot, MedicineRepository repo) {
         this.bot = bot;
+        this.repo = repo;
     }
 
     @Override
@@ -27,6 +31,8 @@ public class MessageServiceImpl implements MessageService {
             return null;
         }
         output = new StringBuilder("");
+        output.append(record.getMedicine().getName() + "\n");
+        output.append("Form: " + repo.findFormById(record.getMedicine().getId()) + "\n");
         output.append(record.getPharmacy().getName() + "\n");
         output.append("Address: " + record.getPharmacy().getAddress() + "\n");
         output.append("Price: " + record.getPrice());

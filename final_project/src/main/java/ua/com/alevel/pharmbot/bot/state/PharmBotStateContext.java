@@ -4,18 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
-import ua.com.alevel.handlers.MessageHandler;
+import ua.com.alevel.pharmbot.handlers.MessageHandler;
 
-import javax.annotation.PostConstruct;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Component
 public class PharmBotStateContext {
 
-    private final Map<PharmBotState, MessageHandler> handlers = new HashMap<>();
+    private final Map<PharmBotState, MessageHandler> handlers = new EnumMap<>(PharmBotState.class);
 
     @Autowired
     public PharmBotStateContext(List<MessageHandler> handlers) {
@@ -29,6 +25,10 @@ public class PharmBotStateContext {
     }
 
     private MessageHandler findCorrespondingHandler(PharmBotState current) {
+
+        if (current == null) {
+            current = PharmBotState.MEDS_SEARCH;
+        }
         switch (current) {
             case MEDS_SEARCH:
             case ASK_MEDICINE_NAME:
@@ -36,6 +36,7 @@ public class PharmBotStateContext {
             case MEDICINE_NAME_RECEIVED:
             case MEDS_SEARCH_FINISHED:
             case ASK_ADDRESS:
+            case ADDRESS_RECEIVED:
             case ASK_ABOUT_ADDRESS_CHANGE:
             case ADDRESS_CHANGE_ANSWER_RECEIVED:
                 return handlers.get(PharmBotState.MEDS_SEARCH);
@@ -45,6 +46,7 @@ public class PharmBotStateContext {
             case ASK_MEDICINE_FORM_NAME:
             case MEDICINE_FORM_NAME_RECEIVED:
                 return handlers.get(PharmBotState.INSTRUCTION_SEARCH);
+
         }
 
         return handlers.get(current);

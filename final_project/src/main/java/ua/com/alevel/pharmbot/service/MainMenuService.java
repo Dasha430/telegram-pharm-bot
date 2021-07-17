@@ -6,6 +6,8 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
+import ua.com.alevel.pharmbot.bot.PharmBot;
+import ua.com.alevel.pharmbot.bot.state.PharmBotState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,8 @@ public class MainMenuService {
     public static final String FIND_MEDS_BUTTON = "Find medicines";
     public static final String GET_MEDS_INSTRUCTION_BUTTON = "See instruction";
     public static final String SEARCH_HISTORY_BUTTON = "Search history";
+
+
 
     public SendMessage getMainMenuMessage(final long chatId, final String textMessage) {
         final ReplyKeyboardMarkup replyKeyboardMarkup = getCustomReplyKeyboardMarkup();

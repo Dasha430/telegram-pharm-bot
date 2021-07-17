@@ -1,4 +1,4 @@
-package ua.com.alevel.handlers;
+package ua.com.alevel.pharmbot.handlers;
 
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -9,7 +9,6 @@ import ua.com.alevel.pharmbot.bot.state.PharmBotState;
 import ua.com.alevel.pharmbot.cache.UserDataCache;
 import ua.com.alevel.pharmbot.model.FormName;
 import ua.com.alevel.pharmbot.service.MedicineInstructionService;
-import ua.com.alevel.pharmbot.service.MessageService;
 import ua.com.alevel.pharmbot.service.ReplyMessageService;
 import ua.com.alevel.templates.MessageTemplates;
 

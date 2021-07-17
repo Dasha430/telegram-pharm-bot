@@ -18,15 +18,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("h2db")
-@AutoConfigureMockMvc
 class FinalProjectApplicationTests {
 
-    @Value("${telegram.bot.token}")
-    String token;
-    @Value("${telegram.bot.username}")
-    String username;
-    @Value("${telegram.bot.webhook.path}")
-    String webHookPath;
     @Autowired
     private WebHookController controller;
 
@@ -39,7 +32,6 @@ class FinalProjectApplicationTests {
     @Test
     void contextLoads() {
         assertThat(controller).isNotNull();
-        System.out.println(webHookPath);
     }
 
     @Test

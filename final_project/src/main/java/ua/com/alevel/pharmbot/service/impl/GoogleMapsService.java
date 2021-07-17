@@ -16,9 +16,10 @@ import static java.lang.Math.*;
 @Service
 @Slf4j
 public class GoogleMapsService implements MapService {
-    private static final String BASEURL = "http://maps.googleapis.com/maps/api/geocode/json";
+    private static final String BASEURL = "https://maps.googleapis.com/maps/api/geocode/json";
     private static final double EARTH_RADIUS = 6371.;
     private static final double DEFAULT_DISTANCE_LIMIT = 2.;
+    private static final String API_KEY = "AIzaSyCHSL4U5kzrimqumBSjqrY21oy4Gx1oXDw";
 
     @Override
     public Map<String, Double> toGeoCoordinates(String address) {
@@ -27,6 +28,7 @@ public class GoogleMapsService implements MapService {
 
         log.info("Geocoding address " + address);
         params.put("address", address);
+        params.put("key", API_KEY);
         params.put("sensor", "false");
         String url = BASEURL + '?' + ParamsEncoder.encodeParams(params);
         JSONObject response;
@@ -49,21 +51,6 @@ public class GoogleMapsService implements MapService {
         return results;
     }
 
-    private String toStrAddress(String latlng) {
-        Map<String, String> params = new HashMap<>();
-        params.put("language", "uk");
-        params.put("sensor", "false");
-        params.put("latlng", latlng);
-        String url = BASEURL + '?' + ParamsEncoder.encodeParams(params);
-
-        try {
-            JSONObject response = JsonReader.read(url);
-            JSONObject location = response.getJSONArray("results").getJSONObject(0);
-            return location.getString("formatted_address");
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
 
     @Override
     public List<String> calculateNearestDistances(String fromAddress, List<String> tos) {
@@ -84,8 +71,8 @@ public class GoogleMapsService implements MapService {
         for (Map<String, Double> dest: destinations) {
             distance = findDistance(fromLng, fromLat, dest);
             if (distance <= DEFAULT_DISTANCE_LIMIT) {
-                String coords = dest.get("lat").toString() + "," +dest.get("lng").toString();
-                results.add(toStrAddress(coords));
+                String coords = "lng:" + dest.get("lng").toString() + " " + "lat:" + dest.get("lat").toString();
+                results.add(coords);
             }
         }
         log.info("Finish calculating distances");

@@ -63,7 +63,9 @@ public class BotFacade {
                 break;
 
         }
-        cache.setUsersCurrentBotState(chatId, state);
+        if (state == null) {
+            cache.setUsersCurrentBotState(chatId,PharmBotState.MEDS_SEARCH);
+        } else cache.setUsersCurrentBotState(chatId,state);
 
         return context.process(message, state);
     }

@@ -1,4 +1,4 @@
-package ua.com.alevel.handlers;
+package ua.com.alevel.pharmbot.handlers;
 
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -21,7 +21,7 @@ public class MainMenuHandler implements MessageHandler{
 
     @Override
     public SendMessage handle(Message message) {
-        return menuService.getMainMenuMessage(message.getChatId(), replyService.getReplyText(MessageTemplates.WELCOME_MESSAGE));
+        return menuService.getMainMenuMessage(message.getChatId(), replyService.getReplyText("welcome"));
     }
 
     @Override

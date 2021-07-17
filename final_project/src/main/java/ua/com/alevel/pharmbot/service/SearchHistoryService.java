@@ -2,6 +2,7 @@ package ua.com.alevel.pharmbot.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.pharmbot.model.Medicine;
 import ua.com.alevel.pharmbot.model.Search;
 import ua.com.alevel.pharmbot.model.User;
@@ -17,8 +18,12 @@ public class SearchHistoryService {
     private UserService userService;
     private FindMedicineService medicineService;
 
-    public SearchHistoryService(SearchRepository repo) {
+    public SearchHistoryService(SearchRepository repo,
+                                UserService userService,
+                                FindMedicineService medicineService) {
         this.repo = repo;
+        this.userService = userService;
+        this.medicineService = medicineService;
     }
 
     public List<String> getHistory(Long id) {
@@ -44,15 +49,20 @@ public class SearchHistoryService {
         return s.getPk().getMedicine().getName();
     }
 
+    @Transactional
     public void save(Long chatId, String medicineName) {
 
         User u = userService.getById(chatId);
         Medicine m = medicineService.getByName(medicineName);
+
+        if (m == null) {
+            return;
+        }
         Search search = new Search();
         search.setUser(u);
         search.setMedicine(m);
         log.info("Saving search ");
-        repo.save(search);
+        repo.save(search.getPk().getMedicine().getId(), search.getPk().getUser().getChatId());
         log.info("Search saved successfully");
     }
 }
