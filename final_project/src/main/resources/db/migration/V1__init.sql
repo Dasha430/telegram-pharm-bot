@@ -17,7 +17,7 @@ create table medicines (
     instruction text,
     form_id     int not null,
 
-    constraint medicine_form_fk foreign key (form_id)
+    constraint medicine_forms foreign key (form_id)
         references forms(id) on delete cascade
 );
 

@@ -32,14 +32,19 @@ public class CallbackQueryFacade {
 
     public SendMessage handleQuery(CallbackQuery query) {
         Long chatId = query.getMessage().getChatId();
-        String[] queryData = query.getData().split(" ");
-        StringBuilder reply = new StringBuilder("Instruction to " + queryData[1] + "\n\n");
 
-        reply.append(instructionService.findInstruction(queryData[1], findCorrespondingFormName(queryData[0])));
-        messageService.sendMessage(chatId, reply.toString());
+        if (cache.getUsersCurrentBotState(chatId).equals(PharmBotState.MEDICINE_FORM_NAME_RECEIVED)) {
 
-        cache.setUsersCurrentBotState(chatId, PharmBotState.SHOW_MAIN_MENU);
-        return replyService.getReplyMessage(chatId, MessageTemplates.SUCCESS_MESSAGE);
+            String[] queryData = query.getData().split(" ");
+            StringBuilder reply = new StringBuilder("Instruction to " + queryData[1] + "\n\n");
+
+            reply.append(instructionService.findInstruction(queryData[1], queryData[0]));
+            messageService.sendMessage(chatId, reply.toString());
+
+            cache.setUsersCurrentBotState(chatId, PharmBotState.SHOW_MAIN_MENU);
+            return replyService.getReplyMessage(chatId, MessageTemplates.SUCCESS_MESSAGE);
+        }
+        return replyService.getWarningReplyMessage(chatId, MessageTemplates.NOT_FOUND_MESSAGE);
     }
 
     private FormName findCorrespondingFormName(String formName) {

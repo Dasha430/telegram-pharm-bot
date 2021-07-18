@@ -15,8 +15,10 @@ import java.util.UUID;
 
 public interface MedicineRepository extends JpaRepository<Medicine, UUID> {
 
-    Optional<Medicine> findFirstByNameAndForm_Name(String name, FormName formName);
+    @Query(value = "select * from medicines where name = :name and form_id = (select id from forms where name = :formName)", nativeQuery = true)
+    Optional<Medicine> findFirstByNameAndFormName(String name, String formName);
 
+    @Query("select m from Medicine m where m.name = :name")
     List<Medicine> findByName(String name);
 
     Optional<Medicine> findFirstByName(String name);

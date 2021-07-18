@@ -7,12 +7,12 @@ import ua.com.alevel.pharmbot.service.LocaleService;
 import java.util.Locale;
 
 @Service
-public class UkraineLocaleService implements LocaleService {
+public class EngLocaleService implements LocaleService {
 
     private Locale locale = Locale.UK;
     private MessageSource source;
 
-    public UkraineLocaleService(MessageSource source) {
+    public EngLocaleService(MessageSource source) {
         this.source = source;
     }
 

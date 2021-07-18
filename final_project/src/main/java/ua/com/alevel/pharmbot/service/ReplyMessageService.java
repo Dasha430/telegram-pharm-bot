@@ -3,6 +3,7 @@ package ua.com.alevel.pharmbot.service;
 import com.vdurmont.emoji.EmojiParser;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
 @Service
 public class ReplyMessageService {
@@ -25,6 +26,10 @@ public class ReplyMessageService {
 
     public SendMessage getInstructionReplyMessage(long chatId, String replyMessage) {
         return new SendMessage(chatId, getEmojiReplyText(replyMessage, INSTRUCTION_EMOJI));
+    }
+
+    public SendMessage getReplyMessageWithMarkup(long chatId, String replyMessage, InlineKeyboardMarkup markup) {
+        return new SendMessage(chatId, replyMessage).setReplyMarkup(markup);
     }
 
     public SendMessage getWarningReplyMessage(long chatId, String replyMessage) {

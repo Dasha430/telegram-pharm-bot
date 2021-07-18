@@ -53,22 +53,26 @@ public class FindInstructionCommandHandler implements MessageHandler {
         if (state.equals(PharmBotState.ASK_NEEDED_MEDICINE_NAME)) {
             reply = replyService.getReplyMessage(chatId, MessageTemplates.ASK_MEDS_NAME_MESSAGE);
             cache.setUsersCurrentBotState(chatId, PharmBotState.ASK_MEDICINE_FORM_NAME);
+            return reply;
         }
         if (state.equals(PharmBotState.ASK_MEDICINE_FORM_NAME)) {
             name = answer;
-            Set<FormName> forms = instructionService.findAllExistingForms(name);
+            Set<String> forms = instructionService.findAllExistingForms(name);
             if (forms == null || forms.isEmpty()) {
                 reply = replyService.getWarningReplyMessage(chatId, MessageTemplates.NOT_FOUND_MESSAGE);
+                cache.setUsersCurrentBotState(chatId, PharmBotState.SHOW_MAIN_MENU);
+                return reply;
             } else  {
                 List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
 
-                for (FormName f : forms) {
+                for (String f : forms) {
                     List<InlineKeyboardButton> row = new ArrayList<>();
-                    row.add(new InlineKeyboardButton().setText(f.name()).setCallbackData(f + " " + name));
+                    row.add(new InlineKeyboardButton().setText(f).setCallbackData(f + " " + name));
                     keyboard.add(row);
                 }
                 markup.setKeyboard(keyboard);
-                reply = replyService.getReplyMessage(chatId, MessageTemplates.ASK_MEDS_FORM_MESSAGE, markup);
+                cache.setUsersCurrentBotState(chatId, PharmBotState.MEDICINE_FORM_NAME_RECEIVED);
+                reply = replyService.getReplyMessageWithMarkup(chatId, MessageTemplates.ASK_MEDS_FORM_MESSAGE, markup);
             }
         }
 

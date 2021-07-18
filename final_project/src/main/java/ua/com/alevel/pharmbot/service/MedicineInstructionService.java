@@ -2,6 +2,7 @@ package ua.com.alevel.pharmbot.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.pharmbot.model.FormName;
 import ua.com.alevel.pharmbot.model.Medicine;
 import ua.com.alevel.pharmbot.repository.MedicineRepository;
@@ -20,10 +21,10 @@ public class MedicineInstructionService {
         this.repo = repo;
     }
 
-    public String findInstruction(String name, FormName formName) {
+    public String findInstruction(String name, String formName) {
         String instruction;
         log.info("Start finding instructions");
-        Medicine medicine = repo.findFirstByNameAndForm_Name(name, formName).orElse(null);
+        Medicine medicine = repo.findFirstByNameAndFormName(name, formName).orElse(null);
         log.info("Finish finding instructions");
 
         if (medicine == null) {
@@ -45,13 +46,14 @@ public class MedicineInstructionService {
         return medicines.get(0).getInstruction();
     }
 
-    public Set<FormName> findAllExistingForms(String name) {
+    @Transactional
+    public Set<String> findAllExistingForms(String name) {
 
         log.info("Start finding forms of " + name);
         List<Medicine> results = repo.findByName(name);
-        Set<FormName> forms = new HashSet<>();
+        Set<String> forms = new HashSet<>();
         for (Medicine m: results) {
-            forms.add(m.getForm().getName());
+            forms.add( repo.findFormById(m.getId()));
         }
         log.info("Found " + forms.size() + " results");
         return forms;

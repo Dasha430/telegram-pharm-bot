@@ -16,10 +16,14 @@ public class BotFacade {
 
     private PharmBotStateContext context;
     private UserDataCache cache;
+    private CallbackQueryFacade callbackQueryFacade;
 
-    public BotFacade(PharmBotStateContext context, UserDataCache cache) {
+    public BotFacade(PharmBotStateContext context,
+                     UserDataCache cache,
+                     CallbackQueryFacade callbackQueryFacade) {
         this.context = context;
         this.cache = cache;
+        this.callbackQueryFacade = callbackQueryFacade;
     }
 
     public SendMessage handleUpdate(Update update) {
@@ -28,6 +32,7 @@ public class BotFacade {
         if (update.hasCallbackQuery()) {
             log.info("New callbackQuery from User: {} with data: {}", update.getCallbackQuery().getFrom().getUserName(),
                     update.getCallbackQuery().getData());
+            return callbackQueryFacade.handleQuery(update.getCallbackQuery());
         }
 
         Message message = update.getMessage();
@@ -64,7 +69,7 @@ public class BotFacade {
 
         }
         if (state == null) {
-            cache.setUsersCurrentBotState(chatId,PharmBotState.MEDS_SEARCH);
+            cache.setUsersCurrentBotState(chatId,PharmBotState.INSTRUCTION_SEARCH);
         } else cache.setUsersCurrentBotState(chatId,state);
 
         return context.process(message, state);
