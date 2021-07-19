@@ -26,4 +26,4 @@ telegram:
     proxyHost: localhost
     proxyPort: 9150
     webhook:
-      path: https://e8772eb27070.ngrok.io
+      path: https://telegrampharmbot.herokuapp.com/
