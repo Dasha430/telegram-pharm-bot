@@ -10,7 +10,6 @@ import ua.com.alevel.pharmbot.model.records.MedInPharmacyRecord;
 import ua.com.alevel.pharmbot.repository.MedicineRepository;
 import ua.com.alevel.pharmbot.repository.MedsInPharmacyRepository;
 import ua.com.alevel.pharmbot.repository.PharmacyRepository;
-import ua.com.alevel.pharmbot.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;

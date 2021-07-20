@@ -11,6 +11,7 @@ server:
   error:
     include-message: always
     include-binding-errors: always
+  port: 9090
 springdoc:
   show-actuator: true
 management:
@@ -26,4 +27,4 @@ telegram:
     proxyHost: localhost
     proxyPort: 9150
     webhook:
-      path: https://telegrampharmbot.herokuapp.com/
+      path: https://0104106d42e3.ngrok.ios

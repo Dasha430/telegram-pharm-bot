@@ -91,8 +91,10 @@ public class FindMedsCommandHandler implements MessageHandler{
             switch (answer.toUpperCase()) {
                 case "Y":
                     cache.setUsersCurrentBotState(chatId,PharmBotState.ASK_ADDRESS);
+                    break;
                 case"N":
                     cache.setUsersCurrentBotState(chatId, PharmBotState.MEDS_SEARCH_STARTED);
+                    break;
                 default:
                     reply = replyService.getWarningReplyMessage(chatId, MessageTemplates.WRONG_ANSWER_CHOICE);
             }
