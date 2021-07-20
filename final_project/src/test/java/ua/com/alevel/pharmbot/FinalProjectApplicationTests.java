@@ -2,14 +2,9 @@ package ua.com.alevel.pharmbot;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.servlet.MockMvc;
 import ua.com.alevel.pharmbot.controller.WebHookController;
 import ua.com.alevel.pharmbot.model.User;
 import ua.com.alevel.pharmbot.service.UserService;
@@ -22,9 +17,6 @@ class FinalProjectApplicationTests {
 
     @Autowired
     private WebHookController controller;
-
-    @Autowired
-    private TestRestTemplate rest;
 
     @Autowired
     private UserService userService;
@@ -42,6 +34,26 @@ class FinalProjectApplicationTests {
         assertThat(u).isNotNull();
         assertThat(u.getChatId()).isEqualTo(id);
 
+    }
+
+    @Test
+    void testGetUserById() {
+        long id = 100873L;
+
+        User u = userService.createUser(id);
+        User user = userService.getById(u.getChatId());
+
+        assertThat(user.getChatId()).isEqualTo(u.getChatId());
+
+    }
+
+    @Test
+    void testUpdateUserAddress(){
+        long id = 100873L;
+        String newAddress = "Украина, Харьков, улица Сумская, 47";
+
+        User u = userService.createUser(id);
+        userService.updateUserAddress(newAddress, id);
     }
 
 }

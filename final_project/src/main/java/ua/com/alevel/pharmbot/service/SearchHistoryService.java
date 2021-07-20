@@ -55,7 +55,7 @@ public class SearchHistoryService {
         User u = userService.getById(chatId);
         Medicine m = medicineService.getByName(medicineName);
 
-        if (m == null) {
+        if (m == null || u == null) {
             return;
         }
         Search search = new Search();
