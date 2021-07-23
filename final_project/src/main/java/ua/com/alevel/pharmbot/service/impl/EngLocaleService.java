@@ -9,8 +9,8 @@ import java.util.Locale;
 @Service
 public class EngLocaleService implements LocaleService {
 
-    private Locale locale = Locale.UK;
-    private MessageSource source;
+    private final Locale locale = Locale.UK;
+    private final MessageSource source;
 
     public EngLocaleService(MessageSource source) {
         this.source = source;

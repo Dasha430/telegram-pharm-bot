@@ -13,9 +13,9 @@ import java.util.List;
 @Component
 public class SearchHistoryCommandHandler implements MessageHandler {
 
-    private UserDataCache cache;
-    private SearchHistoryService searchService;
-    private ReplyMessageService replyService;
+    private final UserDataCache cache;
+    private final SearchHistoryService searchService;
+    private final ReplyMessageService replyService;
 
     public SearchHistoryCommandHandler(UserDataCache cache,
                                        SearchHistoryService searchService,
@@ -28,7 +28,7 @@ public class SearchHistoryCommandHandler implements MessageHandler {
     @Override
     public SendMessage handle(Message message) {
         Long chatId = message.getChatId();
-        StringBuffer reply = new StringBuffer("");
+        StringBuilder reply = new StringBuilder("");
 
         if (cache.getUsersCurrentBotState(message.getChatId()).equals(PharmBotState.SEARCH_HISTORY_REQUEST)) {
             reply.append("Your search history:\n ");

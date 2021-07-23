@@ -1,10 +1,8 @@
 package ua.com.alevel.pharmbot.bot.config;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.client.RestTemplate;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
@@ -15,7 +13,7 @@ import ua.com.alevel.pharmbot.bot.PharmBot;
 @Configuration
 public class AppConfig {
 
-    private BotConfig botConfig;
+    private final BotConfig botConfig;
 
     public AppConfig(BotConfig botConfig) {
         this.botConfig = botConfig;
@@ -31,8 +29,6 @@ public class AppConfig {
         ResourceBundleMessageSource messageSource
                 = new ResourceBundleMessageSource();
 
-        messageSource.setBasename("messages/message");
-        //messageSource.setDefaultEncoding("UTF-8");
         messageSource.setUseCodeAsDefaultMessage(true);
         return messageSource;
     }

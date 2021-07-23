@@ -14,9 +14,9 @@ import java.util.List;
 @Service
 @Slf4j
 public class SearchHistoryService {
-    private SearchRepository repo;
-    private UserService userService;
-    private FindMedicineService medicineService;
+    private final SearchRepository repo;
+    private final UserService userService;
+    private final FindMedicineService medicineService;
 
     public SearchHistoryService(SearchRepository repo,
                                 UserService userService,

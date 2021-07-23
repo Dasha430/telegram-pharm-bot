@@ -7,8 +7,8 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 
 @Service
 public class ReplyMessageService {
-    private static final String WARNING_EMOJI = EmojiParser.parseToUnicode(":x: cross mark");
-    private static final String INSTRUCTION_EMOJI = EmojiParser.parseToUnicode(":exclamation:exclamation mark");
+    private static final String WARNING_EMOJI = EmojiParser.parseToUnicode(":x:");
+    private static final String INSTRUCTION_EMOJI = EmojiParser.parseToUnicode(":exclamation:");
 
     private final LocaleService localeService;
 
@@ -18,14 +18,6 @@ public class ReplyMessageService {
 
     public SendMessage getReplyMessage(long chatId, String replyMessage) {
         return new SendMessage(chatId, localeService.getMessage(replyMessage));
-    }
-
-    public SendMessage getReplyMessage(long chatId, String replyMessage, Object... args) {
-        return new SendMessage(chatId, localeService.getMessage(replyMessage, args));
-    }
-
-    public SendMessage getInstructionReplyMessage(long chatId, String replyMessage) {
-        return new SendMessage(chatId, getEmojiReplyText(replyMessage, INSTRUCTION_EMOJI));
     }
 
     public SendMessage getReplyMessageWithMarkup(long chatId, String replyMessage, InlineKeyboardMarkup markup) {
@@ -39,10 +31,6 @@ public class ReplyMessageService {
 
     public String getReplyText(String replyText) {
         return localeService.getMessage(replyText);
-    }
-
-    public String getReplyText(String replyText, Object... args) {
-        return localeService.getMessage(replyText, args);
     }
 
     public String getEmojiReplyText(String replyText, String emoji) {

@@ -21,10 +21,10 @@ import java.util.stream.Collectors;
 @Slf4j
 public class FindMedicineService {
 
-    private MedsInPharmacyRepository repo;
-    private MapService mapService;
-    private MedicineRepository medsRepo;
-    private PharmacyRepository pharmRepo;
+    private final MedsInPharmacyRepository repo;
+    private final MapService mapService;
+    private final MedicineRepository medsRepo;
+    private final PharmacyRepository pharmRepo;
 
     public FindMedicineService(MedsInPharmacyRepository repo,
                                MapService mapService,

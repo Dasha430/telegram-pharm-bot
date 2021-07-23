@@ -7,7 +7,6 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import ua.com.alevel.pharmbot.bot.state.PharmBotState;
 import ua.com.alevel.pharmbot.cache.UserDataCache;
-import ua.com.alevel.pharmbot.model.FormName;
 import ua.com.alevel.pharmbot.service.MedicineInstructionService;
 import ua.com.alevel.pharmbot.service.ReplyMessageService;
 import ua.com.alevel.templates.MessageTemplates;
@@ -19,9 +18,9 @@ import java.util.Set;
 @Component
 public class FindInstructionCommandHandler implements MessageHandler {
 
-    private UserDataCache cache;
-    private MedicineInstructionService instructionService;
-    private ReplyMessageService replyService;
+    private final UserDataCache cache;
+    private final MedicineInstructionService instructionService;
+    private final ReplyMessageService replyService;
 
 
     public FindInstructionCommandHandler(UserDataCache cache,

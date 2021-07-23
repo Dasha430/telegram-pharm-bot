@@ -6,8 +6,6 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
-import ua.com.alevel.pharmbot.bot.PharmBot;
-import ua.com.alevel.pharmbot.bot.state.PharmBotState;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,7 +3,6 @@ package ua.com.alevel.pharmbot.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.com.alevel.pharmbot.model.FormName;
 import ua.com.alevel.pharmbot.model.Medicine;
 import ua.com.alevel.pharmbot.repository.MedicineRepository;
 
@@ -22,7 +21,6 @@ public class MedicineInstructionService {
     }
 
     public String findInstruction(String name, String formName) {
-        String instruction;
         log.info("Start finding instructions");
         Medicine medicine = repo.findFirstByNameAndFormName(name, formName).orElse(null);
         log.info("Finish finding instructions");
@@ -31,19 +29,6 @@ public class MedicineInstructionService {
             log.info("Instructions not found");
         }
         return medicine.getInstruction();
-    }
-
-    public String findInstruction(String name) {
-        String instruction;
-        log.info("Start finding instructions");
-        List<Medicine> medicines = repo.findByName(name);
-        log.info("Finish finding instructions");
-
-        if (medicines == null) {
-            log.info("Instructions not found");
-            return null;
-        }
-        return medicines.get(0).getInstruction();
     }
 
     @Transactional

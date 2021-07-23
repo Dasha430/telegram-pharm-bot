@@ -1,16 +1,11 @@
 package ua.com.alevel.util;
 
-import com.google.common.base.Function;
-import com.google.common.base.Joiner;
-import com.google.common.collect.Iterables;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.*;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.nio.charset.Charset;
-import java.util.Map;
 
 public class JsonReader {
     private static String readAll(final Reader rd) throws IOException {

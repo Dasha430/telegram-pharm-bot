@@ -6,13 +6,12 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import ua.com.alevel.pharmbot.bot.state.PharmBotState;
 import ua.com.alevel.pharmbot.service.MainMenuService;
 import ua.com.alevel.pharmbot.service.ReplyMessageService;
-import ua.com.alevel.templates.MessageTemplates;
 
 @Component
 public class MainMenuHandler implements MessageHandler{
 
-    private MainMenuService menuService;
-    private ReplyMessageService replyService;
+    private final MainMenuService menuService;
+    private final ReplyMessageService replyService;
 
     public MainMenuHandler(MainMenuService menuService, ReplyMessageService replyService) {
         this.menuService = menuService;

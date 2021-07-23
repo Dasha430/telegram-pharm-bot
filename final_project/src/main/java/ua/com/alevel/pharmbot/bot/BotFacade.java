@@ -14,9 +14,9 @@ import ua.com.alevel.pharmbot.service.MainMenuService;
 @Slf4j
 public class BotFacade {
 
-    private PharmBotStateContext context;
-    private UserDataCache cache;
-    private CallbackQueryFacade callbackQueryFacade;
+    private final PharmBotStateContext context;
+    private final UserDataCache cache;
+    private final CallbackQueryFacade callbackQueryFacade;
 
     public BotFacade(PharmBotStateContext context,
                      UserDataCache cache,
